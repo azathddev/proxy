@@ -12,14 +12,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=proxy
       - traefik.http.routers.harbor-registry.rule=Host(`docker.azathd.ru`)
-      - traefik.http.routers.harbor-registry-http.rule=Host(`docker.azathd.ru`)
-      - traefik.http.routers.harbor-registry-http.entrypoints=web
-      - traefik.http.routers.harbor-registry-http.middlewares=redirect-to-https@docker
-      - traefik.http.routers.harbor-registry.entrypoints=websecure
-      - traefik.http.routers.harbor-registry.tls=true
-      - traefik.http.routers.harbor-registry.tls.certresolver=le
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https
-      - traefik.http.middlewares.redirect-to-https.redirectscheme.permanent=true
+      - traefik.http.routers.harbor-registry.entrypoints=web
       - traefik.http.services.harbor-registry.loadbalancer.server.port=8080
 
 networks:
