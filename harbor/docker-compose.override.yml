@@ -1,0 +1,27 @@
+services:
+  core:
+    networks:
+      artifact_proxy_internal:
+
+  proxy:
+    container_name: harbor-nginx
+    networks:
+      proxy:
+      artifact_proxy_internal:
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.harbor-registry.rule=Host(`docker.azathd.ru`)
+      - traefik.http.routers.harbor-registry.entrypoints=websecure
+      - traefik.http.routers.harbor-registry.tls=true
+      - traefik.http.routers.harbor-registry.tls.certresolver=le
+      - traefik.http.services.harbor-registry.loadbalancer.server.port=8080
+
+networks:
+  proxy:
+    external: true
+    name: proxy
+  artifact_proxy_internal:
+    external: true
+    name: artifact_proxy_internal
+

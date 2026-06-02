@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.jobrunr.spring.autoconfigure.storage.JobRunrElasticSearchStorageAutoConfiguration
+      - com.giffing.bucket4j.spring.boot.starter.Bucket4jAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://openvsx-postgres:5432/${OPENVSX_POSTGRES_DB:openvsx}
+    username: ${OPENVSX_POSTGRES_USER:openvsx}
+    password: ${OPENVSX_POSTGRES_PASSWORD:openvsx}
+    hikari:
+      maximum-pool-size: 10
+  elasticsearch:
+    uris: http://openvsx-elasticsearch:9200
+
+org:
+  jobrunr:
+    database:
+      type: sql
+    miscellaneous:
+      allow-anonymous-data-usage: false
+
+bucket4j:
+  enabled: false
+
+ovsx:
+  storage:
+    local:
+      directory: /home/openvsx/data/storage
+  elasticsearch:
+    enabled: false
+  databasesearch:
+    enabled: true
+  upstream:
+    url: https://open-vsx.org
+  data:
+    mirror:
+      enabled: false
+
