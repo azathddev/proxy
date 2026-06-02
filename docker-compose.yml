@@ -50,11 +50,8 @@ services:
       - traefik.enable=true
       - traefik.docker.network=proxy
       - traefik.http.routers.verdaccio.rule=Host(`npm.${DOMAIN}`)
-      - traefik.http.routers.verdaccio.entrypoints=websecure
-      - traefik.http.routers.verdaccio.tls.certresolver=le
       - traefik.http.routers.verdaccio-http.rule=Host(`npm.${DOMAIN}`)
       - traefik.http.routers.verdaccio-http.entrypoints=web
-      - traefik.http.routers.verdaccio-http.middlewares=redirect-to-https@docker
       - traefik.http.services.verdaccio.loadbalancer.server.port=4873
 
   openvsx-postgres:
